@@ -1,5 +1,5 @@
 {
-    "name": "i-need",
+    "name": "presuppose",
     "version": "1.0.0",
     "description": "assertions library",
     "main": "dist/index.js",
@@ -19,7 +19,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/7willows/i-need.git"
+        "url": "git+https://github.com/7willows/presuppose.git"
     },
     "keywords": [
         "assert",
@@ -29,9 +29,9 @@
     "author": "7willows",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/7willows/i-need/issues"
+        "url": "https://github.com/7willows/presuppose/issues"
     },
-    "homepage": "https://github.com/7willows/i-need#readme",
+    "homepage": "https://github.com/7willows/presuppose#readme",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^4.31.0",
         "@typescript-eslint/parser": "^4.31.0",
