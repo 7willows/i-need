@@ -133,3 +133,7 @@ If you have more then one property then it's useful to add a property name to th
 ```js
 presuppose.nonEmptyStrings({ a: 123, b: 222 }, null, propName => `${propName} cannot be empty`);
 ```
+
+## License
+
+ISC - see LICENSE file
