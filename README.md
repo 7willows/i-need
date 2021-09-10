@@ -84,6 +84,42 @@ presuppose.specificValues({ prop: 111 }, 123);
 
 will throw;
 
+## objects
+
+Checks if given object has only objects as fields. Example
+
+```js
+presuppose.objects({ prop1: {foo: 'bar'}, prop2: new Date() });
+```
+
+will not throw. However this:
+
+```js
+presuppose.objects({ prop1: 123 });
+```
+
+will throws. Also when given an array it will throw:
+
+```js
+presuppose.objects({ prop1: [] }); // throws
+```
+
+## stringsNotMatch
+
+Checks if all properties in a given object do not match a certain pattern. Example:
+
+```js
+presuppose.stringsNotMatch({ prop1: 'test' }, /error/);
+```
+
+the above code will not throw because `'test'` do not match `/error/`. However:
+
+```js
+presuppose.stringsNotMatch({ prop1: 'test' }, /te*/);
+```
+
+will throw.
+
 ## Customizing error message
 
 You can customize error message by providing a custom string:

@@ -53,3 +53,27 @@ test('custom error msg can be a function', t => {
         message: '123 must be a value of a'
     });
 });
+
+test('objects: works fine for objects', t => {
+    t.notThrows(() => presuppose.objects({ ok: {} }));
+});
+
+test('objects: throws on any other value', t => {
+    t.throws(() => presuppose.objects({ notOk: 123 }));
+});
+
+test('objects: throws on null', t => {
+    t.throws(() => presuppose.objects({ notOk: null }));
+});
+
+test('objects: throws on arrays', t => {
+    t.throws(() => presuppose.objects({ notOk: [] }));
+});
+
+test('stringsNotMatch: works fine when strings do not match', t => {
+    t.notThrows(() => presuppose.stringsNotMatch({ prop: 'test' }, /error/));
+});
+
+test('stringsNotMatch: throws if strings do match', t => {
+    t.throws(() => presuppose.stringsNotMatch({ prop: 'test' }, /te.*/));
+});
