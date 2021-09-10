@@ -33,3 +33,23 @@ test('arrays: does not throw on arrays', t => {
     const a: unknown[] = [];
     t.notThrows(() => iNeed.arrays({ a }));
 });
+
+test('specificValue: not throws if specifc value match', t => {
+    t.notThrows(() => iNeed.specificValues({ a: 123 }, 123));
+});
+
+test('specificValue: throws if specifc value does not match', t => {
+    t.throws(() => iNeed.specificValues({ a: 111 }, 123));
+});
+
+test('custom error message works', t => {
+    t.throws(() => iNeed.specificValues({ a: 111 }, 123, 'Value must be 123'), {
+        message: 'Value must be 123'
+    });
+});
+
+test('custom error msg can be a function', t => {
+    t.throws(() => iNeed.specificValues({ a: 111 }, 123, propName => '123 must be a value of ' + propName), {
+        message: '123 must be a value of a'
+    });
+});

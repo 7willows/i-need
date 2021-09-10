@@ -7,19 +7,25 @@ export class AssertionError extends Error {
 
 export const nonEmptyStrings = assertAllFactory((propValue: unknown, propName: string) => {
     if (typeof propValue !== 'string') {
-        throw new AssertionError(`${propName} must be non empty string`);
+        return `${propName} must be non empty string`;
     }
 });
 
 export const stringsOrUndefined = assertAllFactory((propValue: unknown, propName: string) => {
     if (typeof propValue !== 'string' && propValue !== undefined) {
-        throw new AssertionError(`If ${propName} is specified it must be a string`);
+        return `If ${propName} is specified it must be a string`;
     }
 });
 
 export const arrays = assertAllFactory((propValue: unknown, propName: string, _all: InputProperties, msg?: string) => {
     if (!Array.isArray(propValue)) {
-        throw new AssertionError(msg ?? `${propName} must be an array`);
+        return `${propName} must be an array`;
+    }
+});
+
+export const specificValues = assertAllFactory((propValue, propName, _allProps, opts) => {
+    if (propValue !== opts) {
+        return `${propName} must be ${opts}`;
     }
 });
 
@@ -27,9 +33,30 @@ interface InputProperties {
     [key: string]: unknown;
 }
 
-function assertAllFactory(func: (prop: unknown, propName: string, allProps: InputProperties, msg?: string) => void) {
-    return function(properties: InputProperties, msg?: string) {
-        Object.keys(properties).forEach(propName => func(properties[propName], propName, properties, msg));
+function assertAllFactory(
+    func: (
+        prop: unknown,
+        propName: string,
+        allProps: InputProperties,
+        opts?: any,
+        msg?: string | ((propName:string) => string)
+    ) => void
+) {
+    return function(
+        allProps: InputProperties,
+        opts?: any,
+        msg?: string | ((propName:string) => string)
+    ) {
+        Object.keys(allProps).forEach(propName => {
+            const result = func(allProps[propName], propName, allProps, opts, msg)
+            if (typeof result === 'string') {
+                if (typeof msg === 'function') {
+                    msg = msg(propName);
+                }
+                msg = msg || result;
+                throw new AssertionError(msg);
+            }
+        });
     }
 }
 
