@@ -1,13 +1,14 @@
 {
     "name": "presuppose",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "description": "assertions library",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
         "test": "ava",
         "build": "tsc",
-        "lint": "eslint src/ --ext .ts"
+        "lint": "eslint src/ --ext .ts",
+        "prepublish": "npm run build"
     },
     "ava": {
 	"extensions": [
