@@ -19,7 +19,7 @@ export const stringsOrUndefined = assertAllFactory((propValue: unknown, propName
 
 export const stringsNotMatch = assertAllFactory((propValue, propName, _allProps, opts) => {
     if (typeof propValue !== 'string' || propValue?.match(opts)) {
-        return `${propName} must not match ${opts}`;
+        return `${propName} must be a string and it can\'t match ${opts}`;
     }
 });
 
