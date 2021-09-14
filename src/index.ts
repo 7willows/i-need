@@ -6,7 +6,7 @@ export class AssertionError extends Error {
 }
 
 export const nonEmptyStrings = assertAllFactory((propValue: unknown, propName: string) => {
-    if (typeof propValue !== 'string') {
+    if (typeof propValue !== 'string' || propValue.length === 0) {
         return `${propName} must be non empty string`;
     }
 });
@@ -19,13 +19,19 @@ export const stringsOrUndefined = assertAllFactory((propValue: unknown, propName
 
 export const stringsNotMatch = assertAllFactory((propValue, propName, _allProps, opts) => {
     if (typeof propValue !== 'string' || propValue?.match(opts)) {
-        return `${propName} must be a string and it can\'t match ${opts}`;
+        return `${propName} must be a string and it can't match ${opts}`;
     }
 });
 
 export const arrays = assertAllFactory((propValue: unknown, propName: string) => {
     if (!Array.isArray(propValue)) {
         return `${propName} must be an array`;
+    }
+});
+
+export const arraysOfNonEmptyStrings = assertAllFactory((propValue, propName) => {
+    if (!Array.isArray(propValue) || propValue.some(val => typeof val !== 'string' || val.length === 0)) {
+        return `${propName} must be an array of non empty strings`;
     }
 });
 

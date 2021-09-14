@@ -66,7 +66,24 @@ the above code will not throw. However:
 presuppose.arrays({ arr: { length: 123 } });
 ```
 
-will throw;
+will throw.
+
+## arraysOfNonEmptyStrings
+
+Checks if given object has only fields with arrays of non empty strings as values.Example
+
+```js
+presuppose.arraysOfNonEmptyStrings({ arr: [ 'item1', 'item2' ] });
+```
+
+the above code will not throw since the input object has only one key: `arr` which is an array of non empty strings. However:
+
+```js
+presuppose.arraysOfNonEmptyStrings({ arr: [ 'item', 123 ] });
+```
+
+will throw.
+
 
 ## specificValues
 

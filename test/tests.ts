@@ -77,3 +77,19 @@ test('stringsNotMatch: works fine when strings do not match', t => {
 test('stringsNotMatch: throws if strings do match', t => {
     t.throws(() => presuppose.stringsNotMatch({ prop: 'test' }, /te.*/));
 });
+
+test('arraysOfNonEmptyStrings: works fine when only strings are inside', t => {
+    t.notThrows(() => presuppose.arraysOfNonEmptyStrings({ prop: ['item1', 'item2'] }));
+});
+
+test("arraysOfNonEmptyStrings: throw if it's not an array", async t => {
+    t.throws(() => presuppose.arraysOfNonEmptyStrings({ prop: {} }));
+});
+
+test('arraysOfNonEmptyStrings: throws if some item is not a string', async t => {
+    t.throws(() => presuppose.arraysOfNonEmptyStrings({ prop: ['item1', 123] }));
+});
+
+test('arraysOfNonEmptyStrings: throws if some item is empty', async t => {
+    t.throws(() => presuppose.arraysOfNonEmptyStrings({ prop: ['item1', ''] }));
+});
