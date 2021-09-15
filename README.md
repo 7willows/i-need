@@ -26,7 +26,7 @@ the above code will not throw. However this:
 presuppose.nonEmptyStrings({ prop1: 123, prop2: 'test2' });
 ```
 
-will thrwo `AssertionError` because `prop1` is not a stirng.
+will throw `AssertionError` because `prop1` is not a stirng.
 
 This assertion also checks for emptiness:
 
