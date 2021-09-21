@@ -47,6 +47,42 @@ export const specificValues = assertAllFactory((propValue, propName, _allProps, 
     }
 });
 
+export const numbers = assertAllFactory((propValue: unknown, propName: string, _allProps, opts:unknown) => {
+    const msgs = [];
+    let res = true;
+    opts = (typeof opts === 'object' ? opts : {});
+    if (typeof propValue !== 'number') {
+        res = false;
+    }
+    if (typeof opts?.greater === 'number') {
+        msgs.push(`greater than ${opts.greater}`)
+        if (propValue <= opts.greater){
+            res = false;
+        }
+    }
+    if (typeof opts?.greaterOrEqual === 'number') {
+        msgs.push(`greater than or equal ${opts.greaterOrEqual}`)
+        if (propValue < opts.greaterOrEqual){
+            res = false;
+        }
+    }
+    if (typeof opts?.less === 'number') {
+        msgs.push(`less than ${opts.less}`)
+        if (propValue >= opts.less){
+            res = false;
+        }
+    }
+    if (typeof opts?.lessOrEqual === 'number') {
+        msgs.push(`less than or equal ${opts.greaterOrEqual}`)
+        if (propValue > opts.greaterOrEqual){
+            res = false;
+        }
+    }
+    if (!res) {
+        return `${propName} must be a number ${msgs.join(' and ')}`
+    }
+});
+
 interface InputProperties {
     [key: string]: unknown;
 }
