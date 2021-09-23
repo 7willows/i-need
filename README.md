@@ -151,7 +151,7 @@ presuppose.numbers({prop1: 1})
 ``` 
 will not throw.
 
-To check if the number is in specific range you can add a second parameter, which has to be an object conaining one or more of the following props:
+To check if the number is in specific range you can add a second parameter, which has to be an object containing one or more of the following props:
  - `greaterThan`
  - `greaterThanOrEqual`
  - `lessThan`
