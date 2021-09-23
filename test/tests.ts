@@ -93,3 +93,46 @@ test('arraysOfNonEmptyStrings: throws if some item is not a string', async t => 
 test('arraysOfNonEmptyStrings: throws if some item is empty', async t => {
     t.throws(() => presuppose.arraysOfNonEmptyStrings({ prop: ['item1', ''] }));
 });
+
+test('numbers: throws if not a number', async t => {
+    t.throws(() => presuppose.numbers({ prop: 'x' }));
+    t.throws(() => presuppose.numbers({ prop: '32' }));
+    t.throws(() => presuppose.numbers({ prop: {} }));
+    t.throws(() => presuppose.numbers({ prop: null }));
+    t.throws(() => presuppose.numbers({ prop: undefined }));
+    t.throws(() => presuppose.numbers({ prop: true }));
+    t.throws(() => presuppose.numbers({ prop: false }));
+});
+
+test('numbers: throws if compared with non-number ', async t => {
+    t.throws(() => presuppose.numbers({ prop: 1 }, {greaterThan : 'x'}));
+});
+
+
+test('numbers: not throws if a number', async t => {
+    t.notThrows(() => presuppose.numbers({ prop: 123 }));
+    t.notThrows(() => presuppose.numbers({ prop: -3123 }));
+    t.notThrows(() => presuppose.numbers({ prop: -0.323 }));
+    t.notThrows(() => presuppose.numbers({ prop: Infinity }));
+});
+
+test('numbers: throws if not in range', async t => {
+    t.throws(() => presuppose.numbers({ prop: 10 },{greaterThan: 12}));
+    t.throws(() => presuppose.numbers({ prop: -34.55 },{greaterThan: -34.55}));
+    t.throws(() => presuppose.numbers({ prop: 10 },{lessThan: 8}));
+    t.throws(() => presuppose.numbers({ prop: -34.55 },{lessThan: -34.55}));
+    t.throws(() => presuppose.numbers({ prop: -12.2 },{greaterThanOrEqual: -12.1}));
+    t.throws(() => presuppose.numbers({ prop: -12.2 }, { lessThanOrEqual: -12.3 }));
+    t.throws(() => presuppose.numbers({ prop: 12 },{lessThanOrEqual: 5, greaterThan: 1}));
+    t.throws(() => presuppose.numbers({ prop: 12 },{lessThanOrEqual: 5, lessThan: 3}));
+});
+
+test('numbers: not throws if in range', async t => {
+    t.notThrows(() => presuppose.numbers({ prop: 13 },{greaterThan: 12}));
+    t.notThrows(() => presuppose.numbers({ prop: 13 },{greaterThanOrEqual: 13}));
+    t.notThrows(() => presuppose.numbers({ prop: 13 },{lessThan: 15}));
+    t.notThrows(() => presuppose.numbers({ prop: 13 },{lessThanOrEqual: 13}));
+});
+
+
+

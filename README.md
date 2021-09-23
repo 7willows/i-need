@@ -115,7 +115,7 @@ will not throw. However this:
 presuppose.objects({ prop1: 123 });
 ```
 
-will throws. Also when given an array it will throw:
+will throw. Also when given an array it will throw:
 
 ```js
 presuppose.objects({ prop1: [] }); // throws
@@ -136,6 +136,36 @@ presuppose.stringsNotMatch({ prop1: 'test' }, /te*/);
 ```
 
 will throw.
+
+## numbers
+
+Checks if all properties in a given object are numbers. Optionally can include range codnditions. 
+
+Example:
+```js
+presuppose.numbers({prop1: '1'})
+``` 
+will throw, cause `'1'` is a string , while 
+```js
+presuppose.numbers({prop1: 1})
+``` 
+will not throw.
+
+To check if the number is in specific range you can add a second parameter, which has to be an object containing one or more of the following props:
+ - `greaterThan`
+ - `greaterThanOrEqual`
+ - `lessThan`
+ - `lesThanOrEqual`
+
+Example:
+```js
+presuppose.numbers(
+    {prop1:10},
+    {greaterThan:5, lessThanOrEqual:10}
+)
+```
+will not throw, as `prop1` is greater than `5` and less than or equal `10`.
+
 
 ## Customizing error message
 
