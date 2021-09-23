@@ -139,7 +139,7 @@ will throw.
 
 ## numbers
 
-Checks if all properties in a given object are numbers. Optionally can include range codnitions. 
+Checks if all properties in a given object are numbers. Optionally can include range codnditions. 
 
 Example:
 ```js
@@ -164,7 +164,7 @@ presuppose.numbers(
     {greaterThan:5, lessThanOrEqual:10}
 )
 ```
-will not throw, as `10` is greater than `5` and less than or equal `10`.
+will not throw, as `prop1` is greater than `5` and less than or equal `10`.
 
 
 ## Customizing error message
